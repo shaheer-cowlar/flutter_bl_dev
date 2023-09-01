@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bl_dev/sendor_data.dart';
 
 import 'device_config.dart';
-
 void main() {
   runApp(MyApp());
 }
@@ -10,10 +9,48 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomeScreen(), routes: {
-      '/sensor_data': (context) => SensorDataScreen(),
+    return MaterialApp(
+      home: SplashScreen(), // Display SplashScreen initially
+      routes: {
+        '/my_home_screen': (context) => MyHomeScreen(),
+         '/sensor_data': (context) => SensorDataScreen(),
       '/device_configuration': (context) => DeviceConfigurationScreen(),
+
+      },
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Delay for 3 seconds and then navigate to MyHomeScreen
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, '/my_home_screen');
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black, // Background color
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/logo.jpg'), // Your logo image
+            SizedBox(height: 16), // Add spacing
+            CircularProgressIndicator(), // Circular progress indicator
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -26,26 +63,27 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: Color(0xFF4F474B), // Background color
       body: Stack(
-
         children: [
-          AnimatedBackground(),
+         
           Center(
             child: ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/device_configuration');
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-                onPrimary: Colors.white,
+                primary: Color(0xFF87C3D0), // Background color
+                onPrimary: Color(0xFF1E1E1E), // Text color
               ),
               child: Text('Get Started'),
             ),
-          )
+          ),
         ],
       ),
     );
   }
+}
 
   void _showWelcomeDialog(BuildContext context) {
     showDialog(
@@ -66,48 +104,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       },
     );
   }
-}
 
-class AnimatedBackground extends StatefulWidget {
-  @override
-  _AnimatedBackgroundState createState() => _AnimatedBackgroundState();
-}
 
-class _AnimatedBackgroundState extends State<AnimatedBackground> {
-  double _gradientAnimationRotation = 0;
 
-  @override
-  void initState() {
-    super.initState();
-   _startAnimation();
-  }
 
-  void _startAnimation() {
-    Future.delayed(Duration(milliseconds: 1), () {
-      setState(() {
-        _gradientAnimationRotation += 0.1;
-        if (_gradientAnimationRotation >= 1) {
-          _gradientAnimationRotation = 0;
-        }
-        _startAnimation();
-      });
-    });
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 100),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          transform: GradientRotation(_gradientAnimationRotation * 2 * 3.14159),
-          colors: [
-       Colors.grey[200]!,
-    Colors.grey[400]!,
-    Colors.grey[600]!,
-          ],
-        ),
-      ),
-    );
-  }
-}
+

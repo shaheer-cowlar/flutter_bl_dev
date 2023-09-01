@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SensorDataScreen(),
+    );
+  }
+}
+
 class SensorDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF4F474B),
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('Sensor Data',style: TextStyle(color: Colors.white),),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-                 Colors.grey[200]!,
-    Colors.grey[400]!,
-    Colors.grey[600]!, ],
-          ),
+       backgroundColor: 
+       Color(0xFF272727),
+        title: Text(
+          'Sensor Data',
+          style: TextStyle(color: Colors.white),
         ),
-        child: Center(
+      ),
+      body: Center(
+        child: Container(
+           // Background color
           child: SensorDataTable(),
         ),
       ),
@@ -46,11 +53,18 @@ class SensorDataTable extends StatelessWidget {
       final double sensorValue = _generateRandomValue();
       return DataRow(
         cells: [
-          DataCell(Text(sensorName,
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white))),
-          DataCell(Text(sensorValue.toStringAsFixed(1),
-              style: TextStyle(color: Colors.white))),
+          DataCell(
+            Text(
+              sensorName,
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          ),
+          DataCell(
+            Text(
+              sensorValue.toStringAsFixed(1),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
         ],
       );
     }).toList();
@@ -58,28 +72,35 @@ class SensorDataTable extends StatelessWidget {
 
   double _generateRandomValue() {
     return random.nextDouble() *
-        100; // Generating random value between 0 and 100
+        100; // Generating a random value between 0 and 100
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Container(
-        color: Colors.black,
-        child: DataTable(
-          columns: [
-            DataColumn(
-                label: Text('Sensor',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white))),
-            DataColumn(
-                label: Text('Value',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white))),
-          ],
-          rows: _buildRows(),
-        ),
+      child: DataTable(
+        columns: [
+          DataColumn(
+            label: Text(
+              'Sensor',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Text(
+              'Value',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+        rows: _buildRows(),
       ),
     );
   }

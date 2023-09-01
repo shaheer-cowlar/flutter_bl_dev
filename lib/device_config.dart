@@ -42,21 +42,13 @@ class _DeviceConfigurationScreenState extends State<DeviceConfigurationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF4F474B),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xFF272727),
         title: Text('Device Configuration',style: TextStyle(color: Colors.white)),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-                 Colors.grey[200]!,
-    Colors.grey[400]!,
-    Colors.grey[600]!,],
-          ),
-        ),
+    
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -79,13 +71,13 @@ class _DeviceConfigurationScreenState extends State<DeviceConfigurationScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   ElevatedButton(
+ElevatedButton(
   onPressed: () {
     _showLoadingDialog(context);
   },
   style: ElevatedButton.styleFrom(
-    primary: Colors.black,
-    onPrimary: Colors.white,
+    primary: Color(0xFF87C3D0), // Background color
+    onPrimary: Color(0xFF1E1E1E), // Text color
   ),
   child: Text('Save'),
 ),
@@ -97,8 +89,8 @@ ElevatedButton(
     _deviceMacController.clear();
   },
   style: ElevatedButton.styleFrom(
-    primary: Colors.black,
-    onPrimary: Colors.white,
+    primary: Color(0xFF87C3D0), // Background color
+    onPrimary: Color(0xFF1E1E1E), // Text color
   ),
   child: Text('Clear'),
 ),
